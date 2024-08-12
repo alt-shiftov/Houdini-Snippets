@@ -14,3 +14,5 @@ These functions cover various intersection scenarios, including:
 - **Triangle-Triangle**
 - **Segment-Planar Quad**
 - **Segment-Bilinear Patch** (both planar and non-planar quad)
+
+Using these functions, I've created an analog to the "Intersection Analysis" Node:
