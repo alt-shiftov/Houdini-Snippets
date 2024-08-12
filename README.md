@@ -1,6 +1,7 @@
 # Houdini-Snippets
 
 # Intersection Functions
+https://github.com/alt-shiftov/Houdini-Snippets/tree/main/Intersection
 I was trying to explore how intersections work in 3D graphics, so I made a collection of basic functions designed to find intersections in 3D space.
 These functions cover various intersection scenarios, including:
 
