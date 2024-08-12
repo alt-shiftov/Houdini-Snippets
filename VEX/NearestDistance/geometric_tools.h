@@ -1,3 +1,10 @@
+// This is a collection of functions based on Geometric Tools. 
+// I have rewritten some of these functions in VEX for use in Houdini. 
+// You'll also find an example .hip file demonstrating how to use these functions.
+
+// https://www.geometrictools.com/
+// https://github.com/davideberly/GeometricTools/
+
 /////////////////////////////
 // DISTANCE POINT TO SEGMENT
 
