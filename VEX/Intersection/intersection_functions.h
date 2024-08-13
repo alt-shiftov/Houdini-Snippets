@@ -209,7 +209,7 @@ int intersect_segment_curve(int geo; int prim; vector p0, p1; vector positions[]
 ////////////////////////////////////////////
 ////// LINE - PLANE (PLANE is described by normal and point)
 
-function vector line_plane_intersection(vector planeNormal, planePoint, rayDirection, rayPoint; vector interspos){
+function int line_plane_intersection(vector planeNormal, planePoint, rayDirection, rayPoint; vector interspos){
     // Calculates the intersection point of a line (defined by rayDirection and rayPoint)
     // with a plane (defined by planeNormal and planePoint).
 
@@ -236,6 +236,7 @@ function vector line_plane_intersection(vector planeNormal, planePoint, rayDirec
 }
 
 
+
 ////// LINE - PLANE (PLANE is described by three points)
 // https://paulbourke.net/geometry/pointlineplane/pointofintersection.txt
 
@@ -250,7 +251,7 @@ vector CrossProduct(vector p0, p1, p2){
 }
 
 
-int line_plane_intersection(vector La, Lb, P0, P1, P2, intersection)
+int line_plane_intersection(vector La, Lb, P0, P1, P2, intersection; float parameter)
 {
     // thanks to Paul Bourke and Bryan Hanson
     // Finds the intersection point of a line defined by points La and Lb
@@ -272,10 +273,12 @@ int line_plane_intersection(vector La, Lb, P0, P1, P2, intersection)
     float u = n / d;
     
     // Check if the intersection point is within the line segment (optional)
-    // if ((u >= 0.0) && (u <= 1.0)) {
-    //     // Plane is between the two points
+    // if ((u < 0.0) || (u > 1.0)) {
+    //     return 0;
     // }
     
+    parameter = u;
+
     // Calculate the intersection point
     intersection = set(La.x + u * LbMinusLa.x, La.y + u * LbMinusLa.y, La.z + u * LbMinusLa.z);
     
@@ -662,3 +665,140 @@ int segment_bilinearpatch_intersect(vector q0, q1; vector p00, p01, p11, p10; ve
 }
 
 
+////////////////////////////////////////////
+////// SEGMENT - BILINEAR PATCH (NON-PLANAR AND PLANAR QUAD)
+// https://www.shadertoy.com/view/3dXGWs#
+
+// p0, p1 - segment points
+
+// pa = p00 - vertex 0
+// pc = p01 - vertex 1
+// pd = p11 - vertex 2
+// pb = p10 - vertex 3
+
+
+int traceBilinearPatch(vector p0, p1, pa, pc, pd, pb; vector P, uvw; float parameter)
+{
+    // Initialize the ray origin (ro) and ray direction (rd)
+    vector ro = p0;
+    vector rd = normalize(p1 - p0);
+    float dist = distance(p1, p0);
+    
+    // stash values
+    vector p00 = pa; 
+    vector p01 = pc; 
+    vector p11 = pd; 
+    vector p10 = pb; 
+    
+    // Compute edge vectors and other necessary vectors for the bilinear patch
+    vector va = pc - pa;
+    vector vb = (pd - pc) - (pb - pa);
+    vector vd = ro - pa;
+    vector vc = pa - pb;
+
+    // Calculate the coefficients for the quadratic equation
+    // The coefficients are calculated in reverse order to avoid divide-by-zero errors
+    float c = dot(cross(vb, vc), rd);
+    float b = dot(cross(va, vc) + cross(vb, vd), rd);
+    float a = dot(cross(va, vd), rd);
+    
+    // Calculate the discriminant of the quadratic equation
+    float desc = b * b - 4. * a * c;
+    
+    // If the discriminant is negative, there is no real intersection
+    if(desc < 0.0)
+        return 0;
+
+    // Translate the ray origin to put 'pa' at the origin of the coordinate system
+    ro -=pa;
+    pc = va;  // Now pc is va (va = pc - pa)
+
+    pd -= pa;
+    pb -= pa;
+    pa -= pa; // pa is now the origin (0,0,0)
+
+    float i; // Intersection distance along the ray
+    float u, v; // Barycentric coordinates of the intersection point on the bilinear patch
+
+    // Solve the quadratic equation for 'u' at each intersection point
+    float u0 = (2. * a) / (-b - sqrt(desc));
+    float u1 = (2. * a) / (-b + sqrt(desc));
+    
+    // Compute the points on the bilinear patch corresponding to 'u0' and 'u1'
+    vector pu0 = pb * u0;
+    vector pu1 = pb * u1;
+
+    // Compute vectors for the intersection calculation
+    vector vv0 = lerp(pc, pd, u0) - pu0;
+    vector m20 = ro - pu0 - vv0 * dot(vv0, ro - pu0) / dot(vv0, vv0);
+
+    vector vv1 = lerp(pc, pd, u1) - pu1;
+    vector m21 = ro - pu1 - vv1 * dot(vv1, ro - pu1) / dot(vv1, vv1);
+
+
+    float v0, v1; // Solutions for 'v'
+
+    {   // Calculate 'v0' for the first intersection point
+        vector n = cross(va + vb * u0, vd + vc * u0);
+        vector m = cross(n, rd);
+
+        float da = dot(pu0 - ro, m);
+        float db = dot(pc + (pd - pc) * u0 - ro, m);
+
+        v0 = da / (da - db);
+    }
+
+    {   // Calculate 'v1' for the second intersection point
+        vector n = cross(va + vb * u1, vd + vc * u1);
+        vector m = cross(n, rd);
+
+        float da = dot(pu1 - ro, m);
+        float db = dot(pc + (pd - pc) * u1 - ro, m);
+
+        v1 = da / (da - db);
+    }
+
+    // Calculate the ray intersection distance 'i' for both intersection points
+    float da20 = dot(ro - pu0, m20);
+    float db20 = dot((ro + rd) - pu0, m20);
+    float i0 = da20 / (da20 - db20); // Intersection distance for the first point
+
+    float da21 = dot(ro - pu1, m21);
+    float db21 = dot((ro + rd) - pu1, m21);
+    float i1 = da21 / (da21 - db21); // Intersection distance for the second point
+
+    // Determine which intersection point is valid and closest to the ray origin
+    if(u0 < 0. || u0 > 1. || i0 < 0. || v0 < 0. || v0 > 1.)
+    {
+        u = u1;
+        v = v1;
+        i = i1;
+    }
+    else if(u1 < 0. || u1 > 1. || i1 < 0. || v1 < 0. || v1 > 1.)
+    {
+        u = u0;
+        v = v0;
+        i = i0;
+    }
+    else
+    {   // Select the nearest valid intersection
+        u = lerp(u0, u1, select(i0>i1, 1.0, 0.0));
+        v = lerp(v0, v1, select(i0>i1, 1.0, 0.0));
+        i = min(i0, i1);
+    }
+    
+    // If the intersection is outside the valid range, return 0 (no intersection)
+    if(u < 0. || u > 1. || i < 0. || v < 0. || v > 1.)
+        return 0;
+        
+    // Calculate the parameter along the ray for the intersection point
+    parameter = i / dist;
+    if (parameter < 0.0 || parameter > 1.0)
+        return 0;
+        
+    // Calculate the intersection point 'P' on the bilinear patch using uvw coords
+    uvw = set(u, v, 0);
+    P = p00*(1-u)*(1-v) + p01*(1-u)*v + p11*u*v + p10*u*(1-v);
+    
+    return 1;
+}
