@@ -113,8 +113,9 @@ int intersect_segment_segment(vector p1, p2, p3, p4, pa, pb; float parameter[]){
     parameter[0] = mua;
     parameter[1] = mub;
     
+    float tolerance = EPS * max(distance(p1, p2), distance(p3, p4));
     // Check if intersection points are close enough
-    if (distance(pa, pb) < 0.001)
+    if (distance(pa, pb) < tolerance)
         return 1; // Intersection found
     else
         return 0; // No intersection
@@ -146,7 +147,8 @@ int boxes_intersect2d(vector A_min, A_max, B_min, B_max)
     return 1; // Intersection
 }
 
-// сделать curve через массив позиций
+// uvw - curve uvw
+// parameter - segment parameter
 int intersect_segment_curve(int geo; int prim; vector p0, p1; vector positions[], uvw[]; float parameter[]){
     // Finds intersections between a segment defined by points p0 and p1, and a curve defined by geometry geo and primitive prim.
     // Returns the number of intersections found.
@@ -154,9 +156,6 @@ int intersect_segment_curve(int geo; int prim; vector p0, p1; vector positions[]
 
     int pts[] = primpoints(geo, prim); // get curve points
     float eps = 1e-6;
-
-    // vector A_max = max(p0, p1);
-    // vector A_min = min(p0, p1);
 
     // Optimize bounding box calculation using quaternion for alignment
     vector4 quat = dihedral(p1-p0, set(1,0,0)); // Quaternion for aligning segment by Z-axis
@@ -181,12 +180,12 @@ int intersect_segment_curve(int geo; int prim; vector p0, p1; vector positions[]
         int isinside = boxes_intersect2d(A_min, A_max, B_min, B_max);
         if (!isinside) continue; // If bounding boxes don't intersect, skip to next segment
         
-        vector P; float params[];
+        vector P0, P1; float params[];
         // Check for intersection between the input segment and the current curve segment
-        int hasinters = intersect_segment_segment(p0, p1, q0, q1, P, params);
+        int hasinters = intersect_segment_segment(p0, p1, q0, q1, P0, P1, params);
         if (hasinters){
             // Append intersection point to output array
-            append(positions, P);
+            append(positions, avg(P0, P1));
             
             // Calculate U coordinate based on curve parameterization
             float u0 = (i-1) / (len(pts)*1.0-1);
@@ -203,7 +202,6 @@ int intersect_segment_curve(int geo; int prim; vector p0, p1; vector positions[]
     return len(positions);
     
 }
-
 
 
 ////////////////////////////////////////////
