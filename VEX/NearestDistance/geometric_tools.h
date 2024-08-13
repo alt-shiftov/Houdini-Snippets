@@ -515,7 +515,7 @@ int dist_line_triangle(vector lineorig, linedir, v0, v1, v2;
 }
 
 /////////////////////////////
-// DISTANCE POINT TO TRIANGLE
+// DISTANCE POINT TO TRIANGLE. Method 1
 
 function void dist_pt_triangle(vector point, v0, v1, v2; 
     vector out_closest[]; vector out_barycentric; float out_distance; float out_sqrDistance){
@@ -721,6 +721,249 @@ function void dist_pt_triangle(vector point, v0, v1, v2;
     out_barycentric.z = t;
 
 }
+
+
+///////////////////////////////////////////////////////////
+// DISTANCE POINT TO TRIANGLE. Method 2 - Conjugate Gradient
+
+void GetMinEdge02(float a11, b1; float p[]){
+    p[0] = 0.0;
+    if (b1 >= 0.0)
+    {
+        p[1] = 0.0;
+    }
+    else if (a11 + b1 <= 0.0)
+    {
+        p[1] = 1.0;
+    }
+    else
+    {
+        p[1] = -b1 / a11;
+    }
+}
+
+void GetMinEdge12(float a01, a11, b1, f10, f01; float p[])
+{
+    float h0 = a01 + b1 - f10;
+    if (h0 >= 0.0)
+    {
+        p[1] = 0.0;
+    }
+    else
+    {
+        float h1 = a11 + b1 - f01;
+        if (h1 <= 0.0)
+        {
+            p[1] = 1.0;
+        }
+        else
+        {
+            p[1] = h0 / (h0 - h1);
+        }
+    }
+    p[0] = 1.0 - p[1];
+}
+
+void GetMinInterior(float p0[]; float h0; float p1[]; float h1; float p[]){
+    float z = h0 / (h0 - h1);
+    float omz = 1.0 - z;
+    p[0] = omz * p0[0] + z * p1[0];
+    p[1] = omz * p0[1] + z * p1[1];
+}
+
+
+function int UseConjugateGradient(vector point, v0, v1, v2; 
+    vector out_closest[]; vector out_barycentric; float out_distance; float out_sqrDistance){
+    
+    // Compute vectors from the triangle's vertices
+    vector diff = point - v0;
+    vector edge0 = v1 - v0;
+    vector edge1 = v2 - v0;
+    
+    // Compute dot products of the edge vectors with themselves and each other
+    float a00 = dot(edge0, edge0);
+    float a01 = dot(edge0, edge1);
+    float a11 = dot(edge1, edge1);
+    
+    // Compute dot products of the edge vectors with the vector diff
+    float b0 = -dot(diff, edge0);
+    float b1 = -dot(diff, edge1);
+    
+    // Initialize f values, which are used for decision making in the conjugate gradient method
+    float f00 = b0;
+    float f10 = b0 + a00;
+    float f01 = b0 + a01;
+    
+    // Initialize the potential solutions (p0, p1, and p)
+    float p0[], p1[], p[];
+    float dt1, h0, h1;
+
+    // Compute the endpoints p0 and p1 of the segment. The segment is
+    // parameterized by L(z) = (1-z)*p0 + z*p1 for z in [0,1] and the
+    // directional derivative of half the quadratic on the segment is
+    // H(z) = Dot(p1-p0,gradient[Q](L(z))/2), where gradient[Q]/2 =
+    // (F,G). By design, F(L(z)) = 0 for cases (2), (4), (5), and
+    // (6). Cases (1) and (3) can correspond to no-intersection or
+    // intersection of F = 0 with the triangle.
+
+    // Case 1: f00 >= 0, meaning the initial condition is within or on the edge of the triangle
+    if (f00 >= 0.0)
+    {
+        // Sub-case 1.1: f01 >= 0, closest point is on the edge (0,1)
+        if (f01 >= 0.0)
+        {
+            // (1) p0 = (0,0), p1 = (0,1), H(z) = G(L(z))
+            // Find the minimum point on the edge v0-v2
+            GetMinEdge02(a11, b1, p);
+        }
+        else
+        {
+            // Sub-case 1.2: Handle the interior region between p0=(0,t10) and p1=(t01,1-t01)
+            
+            // (2) p0 = (0,t10), p1 = (t01,1-t01),
+            // H(z) = (t11 - t10)*G(L(z))
+            p0[0] = 0.0;
+            p0[1] = f00 / (f00 - f01);
+            p1[0] = f01 / (f01 - f10);
+            p1[1] = 1.0 - p1[0];
+            dt1 = p1[1] - p0[1];
+            h0 = dt1 * (a11 * p0[1] + b1);
+            
+            // Check if the minimum is on the edge or interior
+            if (h0 >= 0.0)
+            {
+                GetMinEdge02(a11, b1, p);
+            }
+            else
+            {
+                h1 = dt1 * (a01 * p1[0] + a11 * p1[1] + b1);
+                if (h1 <= 0.0)
+                {
+                    GetMinEdge12(a01, a11, b1, f10, f01, p);
+                }
+                else
+                {
+                    GetMinInterior(p0, h0, p1, h1, p);
+                }
+            }
+        }
+    }
+    // Case 2: f01 <= 0, meaning the closest point could be on the edge v1-v2
+    else if (f01 <= 0.0)
+    {
+        // Sub-case 2.1: f10 <= 0, closest point is on the edge (1,0)
+        if (f10 <= 0.0)
+        {
+            // (3) p0 = (1,0), p1 = (0,1), H(z) = G(L(z)) - F(L(z))
+            GetMinEdge12(a01, a11, b1, f10, f01, p);
+        }
+        
+        // Sub-case 2.2: Handle the interior region between p0=(t00,0) and p1=(t01,1-t01)
+        else
+        {
+            // (4) p0 = (t00,0), p1 = (t01,1-t01), H(z) = t11*G(L(z))
+            p0[0] = f00 / (f00 - f10);
+            p0[1] = 0.0;
+            p1[0] = f01 / (f01 - f10);
+            p1[1] = 1.0 - p1[0];
+            h0 = p1[1] * (a01 * p0[0] + b1);
+            
+            // Check if the minimum is on the edge or interior
+            if (h0 >= 0.0)
+            {
+                p = p0;  // // Use p0 as the closest point
+            }
+            else
+            {
+                h1 = p1[1] * (a01 * p1[0] + a11 * p1[1] + b1);
+                if (h1 <= 0.0)
+                {
+                    GetMinEdge12(a01, a11, b1, f10, f01, p);
+                }
+                else
+                {
+                    GetMinInterior(p0, h0, p1, h1, p);
+                }
+            }
+        }
+    }
+    // Case 3: f10 <= 0, meaning the closest point could be on the edge v0-v1
+    else if (f10 <= 0.0)
+    {
+        // Sub-case 3.1: Handle the interior region between p0=(0,t10) and p1=(t01,1-t01)
+        // (5) p0 = (0,t10), p1 = (t01,1-t01),
+        // H(z) = (t11 - t10)*G(L(z))
+        p0[0] = 0.0;
+        p0[1] = f00 / (f00 - f01);
+        p1[0] = f01 / (f01 - f10);
+        p1[1] = 1.0 - p1[0];
+        dt1 = p1[1] - p0[1];
+        h0 = dt1 * (a11 * p0[1] + b1);
+        
+        // Check if the minimum is on the edge or interior
+        if (h0 >= 0.0)
+        {
+            GetMinEdge02(a11, b1, p);
+        }
+        else
+        {
+            h1 = dt1 * (a01 * p1[0] + a11 * p1[1] + b1);
+            if (h1 <= 0.0)
+            {
+                GetMinEdge12(a01, a11, b1, f10, f01, p);
+            }
+            else
+            {
+                GetMinInterior(p0, h0, p1, h1, p);
+            }
+        }
+    }
+    // Case 4: Handle the general case where the closest point is inside the triangle
+    else
+    {
+        // Sub-case 4.1: Handle the interior region between p0=(t00,0) and p1=(0,t11)
+        // (6) p0 = (t00,0), p1 = (0,t11), H(z) = t11*G(L(z))
+        p0[0] = f00 / (f00 - f10);
+        p0[1] = 0.0;
+        p1[0] = 0.0;
+        p1[1] = f00 / (f00 - f01);
+        h0 = p1[1] * (a01 * p0[0] + b1);
+        
+        // Check if the minimum is on the edge or interior
+        if (h0 >= 0.0)
+        {
+            p = p0;  // Use p0 as the closest point
+        }
+        else
+        {
+            h1 = p1[1] * (a11 * p1[1] + b1);
+            if (h1 <= 0.0)
+            {
+                GetMinEdge02(a11, b1, p);
+            }
+            else
+            {
+                GetMinInterior(p0, h0, p1, h1, p);
+            }
+        }
+    }
+
+    append(out_closest, point); // [0]
+    append(out_closest, v0 + p[0] * edge0 + p[1] * edge1); // [1]
+
+    diff = out_closest[0] - out_closest[1];
+    out_sqrDistance = dot(diff, diff);
+    out_distance = sqrt(out_sqrDistance);
+    
+    out_barycentric.x = 1.0 - p[0] - p[1];
+    out_barycentric.y = p[0];
+    out_barycentric.z = p[1];
+
+    return 1;
+
+}
+
+
 
 ///////////////////////////////
 // SEGMENT TO TRIANGLE
