@@ -31,6 +31,9 @@ Based on functions from [Geometric Tools](https://github.com/davideberly/Geometr
 - **dist_segment_triangle**
 - **dist_triangle_triangle**
 
-### Projection
-Projection involves finding the minimal distance between geometric entities.<br>
-This collection of functions, based on [Paul Bourke: Points, lines, and planes](https://paulbourke.net/geometry/pointlineplane/) rather than Geometric Tools.
+### [Projection](VEX/Projection)
+Projection simply involves finding the minimal distance.
+This can be achieved using [Near Distance Functions](VEX/NearestDistance) (Geometric Tools Functions).
+
+However, I found another implementations that might also be useful.
+These functions project a point onto: line, segment, plane, triangle, planar and non-planar quad.
