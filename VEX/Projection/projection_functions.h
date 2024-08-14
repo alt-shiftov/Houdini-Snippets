@@ -76,6 +76,7 @@ vector project_point_on_segment(vector A, P0, P1; float parameter)
     // Projection length along the segment
     float t = dot(AP, seg) / dot(seg, seg);
     
+    // to project a point onto a line, simply remove the clamping parameter.
     // Clamp t to [0, 1] to ensure projection is on the segment
     t = clamp(t, 0.0, 1.0);
     
@@ -97,7 +98,8 @@ int project_point_on_segment( vector point, start, end, intersection; float para
         ( ( point.y - start.y ) * ( end.y - start.y ) ) +
         ( ( point.z - start.z ) * ( end.z - start.z ) ) ) /
         ( linemag * linemag );
-    
+
+    // to project a point onto a line, simply remove the clamping parameter.
     u = clamp(u, 0.0f, 1.0f);
  
     intersection.x = start.x + u * ( end.x - start.x );
