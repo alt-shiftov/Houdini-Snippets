@@ -42,7 +42,7 @@ These functions project a point onto: line, segment, plane, triangle, planar and
 # HIPs
 
 ## Solvecurve() / Solveik()
-- Example file of how to use solvecurve() and solveik() functions in VEX.
+- Example file demonstrating the use of *solvecurve()* and *solveik()* functions in VEX.
 ![solvecurve_solveik](readme_images/solvecurve_solveik.gif) <br>
 
 
