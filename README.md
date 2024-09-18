@@ -95,7 +95,8 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 
 ## Additional Nodes
 
-- **UV Transfer**: Transfers UVs from one geometry to another. It's similar to the Labs UV Transfer node but much, much faster.
+- **UV Transfer**: Transfers UVs from one geometry to another. It's similar to the **Labs UV Transfer** node but much, much faster.
+![uvtransfer_compare](readme_images/uvtransfer_vs_labs.jpg)
 
 - **Remesh Inside Faces**: Remeshes the inside faces after a Voronoi fracture, generating uniform polygons. Ensures that every point on a polygon has a corresponding point on neighboring pieces. This node can also add noise to the remeshed inside faces.
 
@@ -104,3 +105,4 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 - **Peak by Mask** / **Smooth by Mask**: Peaks and smooths geometry based on a mask.
 
 
+# 
