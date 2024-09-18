@@ -46,11 +46,11 @@ Houdini’s basic nodes don't always preserve edge groups well during geometry o
 
 These nodes were developed during the creation of my custom Boolean fracture system, which can be found in the Shatterizer repo.
 
-**Transfer Edge**: More accurate edge group transfer compared to Transfer Groups.
-**Split Points Preserve Edges**: Splits points while preserving edge groups.
-**Fuse Preserve Edges**: Fuses points while keeping edge groups intact.
-**Remesh Preserve Edges**: Remeshes geometry while transferring and preserving edge groups.
-**Copy Edge Groups**: Copies edge groups, with an option to copy by ID.
+- **Transfer Edge**: More accurate edge group transfer compared to Transfer Groups. <br>
+- **Split Points Preserve Edges**: Splits points while preserving edge groups. <br>
+- **Fuse Preserve Edges**: Fuses points while keeping edge groups intact. <br>
+- **Remesh Preserve Edges**: Remeshes geometry while transferring and preserving edge groups. <br>
+- **Copy Edge Groups**: Copies edge groups, with an option to copy by ID. <br>
 
 
 ## Intersection and Shattering
