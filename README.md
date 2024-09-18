@@ -39,6 +39,16 @@ However, I found another implementations that might also be useful.
 These functions project a point onto: line, segment, plane, triangle, planar and non-planar quad.
 <br><br>
 
+# HIPs
+
+## Solvecurve() / Solveik()
+- Example file of how to use solvecurve() and solveik() functions in VEX.
+![solvecurve_solveik](readme_images/solvecurve_solveik.gif) <br>
+
+
+<br><br>
+
+
 # Nodes
 
 ## Edge Preservation
