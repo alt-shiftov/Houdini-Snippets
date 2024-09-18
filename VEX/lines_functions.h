@@ -4,52 +4,62 @@
 // findprims - finding primitive lines by two points
 // findprim - finding one primitive line by two points
 
-function void findprims(int geo; string primgrp; int pt01; int pt02; int prims[]){    
+function int[] findprims(int geo; string primgrp; int pt01; int pt02){    
+    int prims[];
+    
+    int hedge = pointhedge(geo, pt01, pt02); //pts[0];
+    if (hedge == -1)
+        hedge = pointhedge(geo, pt02, pt01); 
+    
+    if (hedge == -1) return prims;
+    
+    int prim = hedge_prim(geo, hedge);
+    if (prim >= 0) append(prims, prim);
+    
+    for (int nh = hedge_nextequiv(geo, hedge); nh != hedge; nh = hedge_nextequiv(geo, nh)){
+        prim = hedge_prim(geo, nh);
+        if (prim >= 0)
+            append(prims, prim);
+        
+    }
 
-    int prims01[] = pointprims(geo, pt01);
-    int prims02[] = pointprims(geo, pt02);
-    if (primgrp == '*') primgrp = ''; //faster
-    foreach(int p; prims01){
-        if (find(prims02, p) >= 0 && inprimgroup(geo, primgrp, p))
-            append(prims, p);
-    }    
+    return prims;
 }
 
-function int findprim(int geo; string primgrp; int pt01; int pt02){
-    int prims[] = array();
-    findprims(geo, primgrp, pt01, pt02, prims);
-    if (len(prims) == 0)
-        return -1;
-    else
-        return prims[0];
-}
 
-function int findprim(int geo; int pt01; int pt02){
-    int prims[] = array();
-    string primgrp = '';
-    findprims(geo, primgrp, pt01, pt02, prims);
-    if (len(prims) == 0)
-        return -1;
-    else
-        return prims[0];
-}
-
+// getting prims without primgroup
 function int[] findprims(int geo; int pt01; int pt02){
-    int prims[] = array();
+    
     string primgrp = '';
-    findprims(geo, primgrp, pt01, pt02, prims);
+    int prims[] = findprims(geo, primgrp, pt01, pt02);
     return prims;
 }
 
-function int[] findprims(int geo; string primgrp; int pt01; int pt02){
-    int prims[] = array();
-    findprims(geo, primgrp, pt01, pt02, prims);
-    return prims;
+// finding one prim with primgroup
+function int findprim(int geo; string primgrp; int pt01; int pt02){
+
+    int prims[] = findprims(geo, primgrp, pt01, pt02);
+    
+    if (len(prims) == 0)
+        return -1;
+    else
+        return prims[0];
 }
+
+// finding one prim without primgroup
+function int findprim(int geo; int pt01; int pt02){
+    string primgrp = '';
+    int prims[] = findprims(geo, primgrp, pt01, pt02);
+    if (len(prims) == 0)
+        return -1;
+    else
+        return prims[0];
+}
+
 
 
 /////////////////////////////////////////
-// Remove Duplicated Lines. Using Find prim
+// Removing Duplicated Lines. Iterating over primitives, using findprims()
 
 function void removeduplines(int geo; int primnum){
 
