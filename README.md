@@ -75,6 +75,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 - **RBD Split:** Optimizes RBD setups by identifying pieces that are static or moving below a certain speed threshold. This can be helpful when exporting RBDs to FBX. Instead of exporting all pieces, you can export only the moving pieces with animation and export static pieces as static geometry.
 
 - **Dejitter**: Removes jittering from animated points over time, especially useful for handling jittery simulations like cloth.
+![dejitter_gif](readme_images/dejitter_vis.gif) <br>
 
 - **Fuse Generate / Fuse Extract**: A pair of nodes for fusing points and extracting values from the fused points.
 	- **Fuse Generate**: Fuses points and generates attributes for use with the Fuse Extract node.
@@ -96,6 +97,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 ## Additional Nodes
 
 - **UV Transfer**: Transfers UVs from one geometry to another. It's similar to the **Labs UV Transfer** node but much, much faster.
+![uvtransfer_gif](readme_images/uvtransfer_gif.gif) <br>
 ![uvtransfer_compare](readme_images/uvtransfer_vs_labs.jpg)
 
 - **Remesh Inside Faces**: Remeshes the inside faces after a Voronoi fracture, generating uniform polygons. Ensures that every point on a polygon has a corresponding point on neighboring pieces. This node can also add noise to the remeshed inside faces.
