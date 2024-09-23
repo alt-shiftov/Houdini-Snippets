@@ -96,7 +96,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 <br><img src="readme_images/separate_pieces.jpg" width=600px><br>
 
 - <img src="readme_images/icons/bound.svg" width=20px> ![**Bound Pieces**](Nodes/sop_ALT.boundpiece.1.0.hdalc) - generate bound for pieces
-- <img src="readme_images/icons/matchsize.svg" width=20px> **Match Size Piece** - make Match Size for pieces
+- <img src="readme_images/icons/matchsize.svg" width=20px> ![**Match Size Piece**](Nodes/sop_ALT.matchsize_piece.1.0.hdalc) - make Match Size for pieces
 
 
 ## Useful for simulations
