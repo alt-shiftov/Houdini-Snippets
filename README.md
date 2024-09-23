@@ -6,15 +6,15 @@
 I was trying to explore how intersections work in 3D graphics, so I made a collection of basic functions designed to find intersections in 3D space.
 These functions cover various intersection scenarios, including:
 
-- `Line-Line`
-- `Segment-Segment`
-- `Segment-Curve`
-- `Line-Plane`
-- `Plane-Plane`
-- `Segment-Triangle`
-- `Triangle-Triangle`
-- `Segment-Planar Quad`
-- `Segment-Bilinear Patch (both planar and non-planar quad)`
+- [`Line-Line`](VEX/Intersection/intersection_functions.h#L5)
+- [`Segment-Segment`](VEX/Intersection/intersection_functions.h#L66)
+- [`Segment-Curve`](VEX/Intersection/intersection_functions.h#L152)
+- [`Line-Plane`](VEX/Intersection/intersection_functions.h#L210)
+- [`Plane-Plane`](VEX/Intersection/intersection_functions.h#L291)
+- [`Segment-Triangle`](VEX/Intersection/intersection_functions.h#L337)
+- [`Triangle-Triangle`](VEX/Intersection/intersection_functions.h#L406)
+- [`Segment-Planar Quad`](VEX/Intersection/intersection_functions.h#L485)
+- [`Segment-Bilinear Patch (both planar and non-planar quad)`](VEX/Intersection/intersection_functions.h#L577)
 
 Based on this research I developed the <img src="readme_images/icons/booleanfracture.svg" width=15px> ![Shatterizer](https://github.com/alt-shiftov/Shatterizer) which improves precision of boolean fracturing as well as the <img src="readme_images/icons/intersectionanalysis.svg" width=15px> ![Intersection Analysis Custom]() node.
 
