@@ -16,7 +16,7 @@ These functions cover various intersection scenarios, including:
 - [`Segment-Planar Quad`](VEX/Intersection/intersection_functions.h#L485)
 - [`Segment-Bilinear Patch (both planar and non-planar quad)`](VEX/Intersection/intersection_functions.h#L577)
 
-Based on this research I developed the <img src="readme_images/icons/booleanfracture.svg" width=15px> ![Shatterizer](https://github.com/alt-shiftov/Shatterizer) which improves precision of boolean fracturing as well as the <img src="readme_images/icons/intersectionanalysis.svg" width=15px> ![Intersection Analysis Custom]() node.
+Based on this research I developed the <img src="readme_images/icons/booleanfracture.svg" width=15px> ![Shatterizer](https://github.com/alt-shiftov/Shatterizer) which improves precision of boolean fracturing as well as the <img src="readme_images/icons/intersectionanalysis.svg" width=15px> ![Intersection Analysis Custom](Nodes/sop_ALT.intersectionanalysis_custom.1.0.hdalc) node.
 <br><br> <img src="readme_images/intersection_vis.gif" width=450px> <br>
 
 
