@@ -60,7 +60,7 @@ These functions project a point onto: [`line`](VEX/Projection/projection_functio
 
 ## Solvecurve() / Solveik()
 - Example file demonstrating the use of `solvecurve()` and `solveik()` functions in VEX.
-<br> <img src="readme_images/solvecurve_solveik.gif" width=600px> <br>
+<br><br> <img src="readme_images/solvecurve_solveik.gif" width=600px> <br>
 
 <br><br>
 
