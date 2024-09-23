@@ -1,5 +1,6 @@
 // Attempting to create an analog of the intersect_all() function.
-// This is a very simple implementation.
+// This is a very basic implementation.
+
 // Function identifies the nearest primitives to a segment using primfind().
 // It then iterates over these primitives and applies the appropriate intersection function based on the primitive type.
 // The function only works triangles, segments, and curves.
