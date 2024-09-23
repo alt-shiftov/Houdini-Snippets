@@ -16,7 +16,7 @@ These functions cover various intersection scenarios, including:
 - **Segment-Planar Quad**
 - **Segment-Bilinear Patch** (both planar and non-planar quad)
 
-Based on this research I developed the ![Shatterizer](https://github.com/alt-shiftov/Shatterizer) which improves precision of boolean fracturing as well as the ![Intersection Analysis Custom]() node.
+Based on this research I developed the <img src="readme_images/icons/booleanfracture.svg" width=15px> ![Shatterizer](https://github.com/alt-shiftov/Shatterizer) which improves precision of boolean fracturing as well as the <img src="readme_images/icons/intersectionanalysis.svg" width=15px> ![Intersection Analysis Custom]() node.
 
 ### [Nearest Distance (Geometric Tools)](VEX/NearestDistance)
 This collection of functions is designed to find the nearest distances between various geometric entities. <br>
