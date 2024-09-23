@@ -52,6 +52,10 @@ These functions project a point onto: [`line`](VEX/Projection/projection_functio
   - `isedgeinprim()` – Check if an edge belongs to a specific primitive.
   - `edgeprims()` – Find primitives that share an edge.
   - `nearedgestopoint()` – Find the nearest edge to a point.
+ 
+<img src="readme_images/winding2d.jpg" width=400px> <br>
+
+
 
 ### Lines, Curves, and UVWs
 - ![`resamplebylength()`](VEX/resample_functions.h#L101) – Resamples a curve (similar to the Resample SOP but as a function).
