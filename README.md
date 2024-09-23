@@ -95,9 +95,11 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 
 ## Deformation and Skeleton Export
 
-- **RBD to FBX**: Prepares rigid body animations for FBX export.
+- **RBD to FBX**: Converts rigid animation into skeletal animation. Can be exported into FBX format. Useful for 
+ 
+- **Deform to FBX**: Converts deforming geometry into skeletal animation. Can be exported to FBX format. Useful for deforming simulations from vellum. Supports tearing cloth simulation from vellum. Able to work with multiple pieces. 
 
-- **Deform to FBX**: Converts deforming geometry into bone deformation for FBX export. Works with multiple pieces.
+- **Wire To FBX** :  Converts wire simulations from Vellum into skeletal animation, which can be exported in FBX format. This node supports both standard and broken wires. Able to work wih multiple separate wires. Multiple Capture methods.
 
 - **pCapt to boneCapt**: Converts point capture data to bone capture data. This node allows you to generate capture data between geometry and a skeleton using Point Deform, then convert it to bone capture deformation. Result will be work with the Bone Deform node.
 
@@ -112,7 +114,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 
 - **Remesh Inside Faces**: Remeshes the inside faces after a Voronoi fracture, generating uniform polygons. Ensures that every point on a polygon has a corresponding point on neighboring pieces. This node can also add noise to the remeshed inside faces.
 
-- **View Hedges**: A node for visualizing half-edges (hedges).
+- **View Hedges**: A node for visualizing half-edges (hedges). Able to generate visualizer
 
 - **Peak by Mask** / **Smooth by Mask**: Peaks and smooths geometry based on a mask.
 
