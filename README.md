@@ -17,6 +17,8 @@ These functions cover various intersection scenarios, including:
 - [`Segment-Bilinear Patch (both planar and non-planar quad)`](VEX/Intersection/intersection_functions.h#L577)
 
 Based on this research I developed the <img src="readme_images/icons/booleanfracture.svg" width=15px> ![Shatterizer](https://github.com/alt-shiftov/Shatterizer) which improves precision of boolean fracturing as well as the <img src="readme_images/icons/intersectionanalysis.svg" width=15px> ![Intersection Analysis Custom]() node.
+<br><br> <img src="readme_images/intersection_vis.gif" width=450px> <br>
+
 
 ### [Nearest Distance (Geometric Tools)](VEX/NearestDistance)
 This collection of functions is designed to find the nearest distances between various geometric entities. <br>
@@ -30,6 +32,7 @@ Based on functions from [Geometric Tools](https://github.com/davideberly/Geometr
 - [`dist_pt_triangle`](VEX/NearestDistance/neardistance.h#L520)
 - [`dist_segment_triangle`](VEX/NearestDistance/neardistance.h#L972)
 - [`dist_triangle_triangle`](VEX/NearestDistance/neardistance.h#L1031)
+
 
 ### [Projection](VEX/Projection)
 Projection simply involves finding the minimal distance.
