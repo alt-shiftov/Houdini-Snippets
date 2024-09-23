@@ -22,21 +22,21 @@ Based on this research I developed the <img src="readme_images/icons/booleanfrac
 This collection of functions is designed to find the nearest distances between various geometric entities. <br>
 Based on functions from [Geometric Tools](https://github.com/davideberly/GeometricTools/):
 
-- `dist_point_segment`
-- `dist_segment_segment`
-- `dist_line_line`
-- `dist_line_segment`
-- `dist_line_triangle`
-- `dist_pt_triangle`
-- `dist_segment_triangle`
-- `dist_triangle_triangle`
+- [`dist_point_segment`](VEX/NearestDistance/neardistance.h#L11)
+- [`dist_segment_segment`](VEX/NearestDistance/neardistance.h#L62)
+- [`dist_line_line`](VEX/NearestDistance/neardistance.h#L305)
+- [`dist_line_segment`](VEX/NearestDistance/neardistance.h#L344)
+- [`dist_line_triangle`](VEX/NearestDistance/neardistance.h#L421)
+- [`dist_pt_triangle`](VEX/NearestDistance/neardistance.h#L520)
+- [`dist_segment_triangle`](VEX/NearestDistance/neardistance.h#L972)
+- [`dist_triangle_triangle`](VEX/NearestDistance/neardistance.h#L1031)
 
 ### [Projection](VEX/Projection)
 Projection simply involves finding the minimal distance.
 This can be achieved using [Near Distance Functions](VEX/NearestDistance) (Geometric Tools Functions).
 
 However, I found another implementations that might also be useful.
-These functions project a point onto: _line_, _segment_, _plane_, _triangle_, _planar_ and _non-planar quad_.
+These functions project a point onto: [`line`](VEX/Projection/projection_functions.h#L90), [`segment`](VEX/Projection/projection_functions.h#L68), [`plane`](VEX/Projection/projection_functions.h#L53), [`triangle`](VEX/Projection/projection_functions.h#L121), [`planar`](VEX/Projection/projection_functions.h#L187) and [`non-planar quad`](VEX/Projection/projection_functions.h#L358).
 <br><br>
 
 ### Hedges, Winding, and Edges
