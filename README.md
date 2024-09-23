@@ -120,7 +120,11 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 - <img src="readme_images/icons/remesh.svg" width=20px> **Remesh Inside Faces**: Remeshes the inside faces after a Voronoi fracture, generating uniform polygons. Ensures that every point on a polygon has a corresponding point on neighboring pieces. This node can also add noise to the remeshed inside faces.
 <br><br> <img src="readme_images/remesh_inside.jpg" width=600px> <br>
 
-- <img src="readme_images/icons/view_vertex_order.svg" width=20px> **View Hedges**: A node for visualizing half-edges (hedges). Able to generate visualizer
+- <img src="readme_images/icons/voronoifracture.svg" width=20px> **RBD Guided Voronoi**: This node enhances Voronoi fracturing by using curves or planes as guides. It was developed during the search for a more precise solution to fracture geometry. While Voronoi fractures are accurate and stable, they often lack flexibility. This node makes the Voronoi fracture process more controllable.
+<br><br> <img src="readme_images/rbd_guided_voronoi.jpg" width=600px> <br>
+
+
+- <img src="readme_images/icons/view_vertex_order.svg" width=20px> **View Hedges**: A node for visualizing half-edges (hedges). It can generate visualizer markers to display hedge numbers.
 <br><br> <img src="readme_images/view_hedges.jpg" width=600px> <br>
 
 - **Peak by Mask** / **Smooth by Mask**: Peaks and smooths geometry based on a mask.
