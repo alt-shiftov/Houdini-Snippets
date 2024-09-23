@@ -42,7 +42,7 @@ However, I found another implementations that might also be useful.
 These functions project a point onto: [`line`](VEX/Projection/projection_functions.h#L90), [`segment`](VEX/Projection/projection_functions.h#L68), [`plane`](VEX/Projection/projection_functions.h#L53), [`triangle`](VEX/Projection/projection_functions.h#L121), [`planar`](VEX/Projection/projection_functions.h#L187) and [`non-planar quad`](VEX/Projection/projection_functions.h#L358).
 <br><br>
 
-### Hedges, Winding, and Edges
+### ![Hedges, Winding](VEX/hedge_winding_functions.h), and ![Edges](VEX/edge_functions.h)
 - Snippets for ![iterating over half-edges (hedges)](VEX/hedge_winding_functions.h#L22).
 - Finding the ![winding number](VEX/hedge_winding_functions.h#L182) (determine if a point is inside or outside 2D/3D geometry).
 - ![Comparing winding](VEX/hedge_winding_functions.h#L110) direction between two primitives.
@@ -57,7 +57,7 @@ These functions project a point onto: [`line`](VEX/Projection/projection_functio
 
 
 
-### Lines, Curves, and UVWs
+### ![Lines, Curves, and UVWs](VEX/lines_functions.h)
 - ![`resamplebylength()`](VEX/resample_functions.h#L101) – Resamples a curve (similar to the Resample SOP but as a function).
 - ![`resamplebylength_pin()`](VEX/resample_functions.h#L113) - Resample a curve while keeping certain points fixed (pinned).
 - Finding points along a curve between UV coordinates.
