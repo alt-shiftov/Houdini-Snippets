@@ -75,7 +75,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 
 ## Handling Pieces
 
-- <img src="readme_images/icons/explodedview.svg" width=20px> **Separate Pieces**: This node is essential for processing multiple pieces. It separates pieces from each other using their piece attribute, allowing you to iterate through them simultaneously. This is useful for tasks like generating captures between identical pieces, transferring attributes, or fusing by pieces. It is much faster than using a foreach loop or piece groups. This method is based on the "Point Deform" node.
+- <img src="readme_images/icons/explodedview.svg" width=20px> **Separate Pieces**: This node is essential for **processing multiple pieces**. It separates pieces from each other using their piece attribute, allowing you to iterate through them simultaneously. This is useful for tasks like **generating captures** between identical pieces, **transferring attributes**, or **fusing by pieces**. It is much faster than using a foreach loop or piece groups. This method is based on the "Point Deform" node.
 
 - <img src="readme_images/icons/bound.svg" width=20px> **Bound Pieces** - generate bound for pieces
 - <img src="readme_images/icons/matchsize.svg" width=20px> **Match Size Piece** - make Match Size for pieces
