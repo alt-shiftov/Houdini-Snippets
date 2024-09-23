@@ -110,6 +110,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 
 - **Spline Deformer**: Deforms geometry based on a spline, capable of handling multiple pieces. It uses **primitive UVW** and **point deformation** and has an OpenCL implementation for better performance.
  <br> ADD IMAGE  <br>
+<br> <img src="readme_images/spline_deformer.jpg" width=500px> <br>
 
 
 ## Additional Nodes
