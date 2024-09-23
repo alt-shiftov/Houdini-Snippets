@@ -6,15 +6,15 @@
 I was trying to explore how intersections work in 3D graphics, so I made a collection of basic functions designed to find intersections in 3D space.
 These functions cover various intersection scenarios, including:
 
-- **Line-Line**
-- **Segment-Segment**
-- **Segment-Curve**
-- **Line-Plane**
-- **Plane-Plane**
-- **Segment-Triangle**
-- **Triangle-Triangle**
-- **Segment-Planar Quad**
-- **Segment-Bilinear Patch** (both planar and non-planar quad)
+- `Line-Line`
+- `Segment-Segment`
+- `Segment-Curve`
+- `Line-Plane`
+- `Plane-Plane`
+- `Segment-Triangle`
+- `Triangle-Triangle`
+- `Segment-Planar Quad`
+- `Segment-Bilinear Patch (both planar and non-planar quad)`
 
 Based on this research I developed the <img src="readme_images/icons/booleanfracture.svg" width=15px> ![Shatterizer](https://github.com/alt-shiftov/Shatterizer) which improves precision of boolean fracturing as well as the <img src="readme_images/icons/intersectionanalysis.svg" width=15px> ![Intersection Analysis Custom]() node.
 
@@ -22,14 +22,14 @@ Based on this research I developed the <img src="readme_images/icons/booleanfrac
 This collection of functions is designed to find the nearest distances between various geometric entities. <br>
 Based on functions from [Geometric Tools](https://github.com/davideberly/GeometricTools/):
 
-- **dist_point_segment**
-- **dist_segment_segment**
-- **dist_line_line**
-- **dist_line_segment**
-- **dist_line_triangle**
-- **dist_pt_triangle**
-- **dist_segment_triangle**
-- **dist_triangle_triangle**
+- `dist_point_segment`
+- `dist_segment_segment`
+- `dist_line_line`
+- `dist_line_segment`
+- `dist_line_triangle`
+- `dist_pt_triangle`
+- `dist_segment_triangle`
+- `dist_triangle_triangle`
 
 ### [Projection](VEX/Projection)
 Projection simply involves finding the minimal distance.
@@ -39,10 +39,27 @@ However, I found another implementations that might also be useful.
 These functions project a point onto: line, segment, plane, triangle, planar and non-planar quad.
 <br><br>
 
+### Hedges, Winding, and Edges
+- Snippets for iterating over half-edges (hedges).
+- Finding the winding number (determine if a point is inside or outside 2D/3D geometry).
+- Comparing winding direction between two primitives.
+- Edge-related functions:
+  - `primedges()` – Get edges of a primitive.
+  - `pointedges()` – Get edges connected to a point.
+  - `isedgeinprim()` – Check if an edge belongs to a specific primitive.
+  - `edgeprims()` – Find primitives that share an edge.
+  - `nearedgestopoint()` – Find the nearest edge to a point.
+
+### Lines, Curves, and UVw
+- `resamplebylength()` – Resamples a curve (similar to the Resample SOP but as a function).
+- Finding points along a curve between UV coordinates.
+- Finding nearby vertices based on UV coordinates.
+- Finding a primitive line using two points.
+
 # HIPs
 
 ## Solvecurve() / Solveik()
-- Example file demonstrating the use of *solvecurve()* and *solveik()* functions in VEX.
+- Example file demonstrating the use of `solvecurve()` and `solveik()` functions in VEX.
 <br> <img src="readme_images/solvecurve_solveik.gif" width=600px> <br>
 
 <br><br>
@@ -64,7 +81,7 @@ These nodes were developed during the creation of my **custom Boolean fracture s
 ## Intersection and Shattering
 These nodes were created to better understand intersection operations in Houdini.
 
-- <img src="readme_images/icons/intersectionanalysis.svg" width=20px> **Intersection Analysis Custom:** A custom version of the **Intersection Analysis node**, which can be slightly faster than the original. Like the original node, it can store *@sourceprim*, *@sourceinput*, and *@sourceprimuv* attributes. 
+- <img src="readme_images/icons/intersectionanalysis.svg" width=20px> **Intersection Analysis Custom:** A custom version of the **Intersection Analysis node**, which can be slightly faster than the original. Like the original node, it can store `@sourceprim`, `@sourceinput`, and `@sourceprimuv` attributes. 
 Additionally, it can **split lines** based on the primitives they belong to and store information about which **edges** points are associated with.
 <br> <img src="readme_images/intersectionanalysis.jpg" width=500px> <br>
 
@@ -100,7 +117,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 
 - **Wire to FBX**: Converts wire simulations from Vellum into skeletal animations for export in FBX format. Useful for wires, hair, string, and similar simulations. This node supports both intact and broken wires and works with multiple separate wires. Offers three capture methods.
 
-- <img src="readme_images/icons/bonedeform.svg" width=20px> **pCapt to boneCapt**: Converts point capture data to bone capture data (*@pCaptPts* to *@boneCapture*). This node allows to generate capture data between geometry and a skeleton using Point Deform, then convert it to **bone capture deformation**. Result will be work with the **Bone Deform** node.
+- <img src="readme_images/icons/bonedeform.svg" width=20px> **pCapt to boneCapt**: Converts point capture data to bone capture data (`@pCaptPts` to `@boneCapture`). This node allows to generate capture data between geometry and a skeleton using Point Deform, then convert it to **bone capture deformation**. Result will be work with the **Bone Deform** node.
 <br><img src="readme_images/pointCapture to Bone Capture.jpg" width=450px><br>
 
 - **Spline Deformer**: Deforms geometry based on a spline, capable of handling multiple pieces. It uses **primitive UVW** and **point deformation** and has an OpenCL implementation for better performance.
