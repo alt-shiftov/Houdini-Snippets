@@ -96,14 +96,11 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 <br> <img src="readme_images/fuse_generate_fuse_extract.jpg" width=400px>
 ## Deformation and Skeleton Export
 
-- **RBD to FBX**: Converts rigid animation into skeletal animation. Can be exported into FBX format. Useful for 
-  <br> ADD GIF  <br>
+- **RBD to FBX**: Converts rigid body animations into skeletal animations, allowing export in FBX format. This is useful for transferring RBD simulations into skeletal animations for game engines.
 
-- **Deform to FBX**: Converts deforming geometry into skeletal animation. Can be exported to FBX format. Useful for deforming simulations from vellum. Supports tearing cloth simulation from vellum. Able to work with multiple pieces. 
- <br> ADD GIF  <br>
+- **Deform to FBX**: Converts deforming geometry into skeletal animations, exportable in FBX format. Ideal for simulations such as cloth or soft bodies, with support for tearing cloth from Vellum. It can handle multiple pieces and offers four capture methods.
 
-- **Wire To FBX** :  Converts wire simulations from Vellum into skeletal animation, which can be exported in FBX format. This node supports both standard and broken wires. Able to work wih multiple separate wires. Multiple Capture methods.
- <br> ADD GIF  <br>
+- **Wire to FBX**: Converts wire simulations from Vellum into skeletal animations for export in FBX format. Useful for wires, hair, string, and similar simulations. This node supports both intact and broken wires and works with multiple separate wires. Offers three capture methods.
 
 - <img src="readme_images/icons/bonedeform.svg" width=20px> **pCapt to boneCapt**: Converts point capture data to bone capture data (*@pCaptPts* to *@boneCapture*). This node allows to generate capture data between geometry and a skeleton using Point Deform, then convert it to **bone capture deformation**. Result will be work with the **Bone Deform** node.
 <br><img src="readme_images/pointCapture to Bone Capture.jpg" width=450px><br>
