@@ -129,6 +129,4 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 - <img src="readme_images/icons/view_vertex_order.svg" width=20px> **View Hedges**: A node for visualizing half-edges (hedges). It can generate visualizer markers to display hedge numbers.
 <br><br> <img src="readme_images/view_hedges.jpg" width=600px> <br>
 
-- **Peak by Mask** / **Smooth by Mask**: Peaks and smooths geometry based on a mask.
-
 
