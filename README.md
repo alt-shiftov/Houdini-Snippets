@@ -106,7 +106,6 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 
 - <img src="readme_images/icons/fuse.svg" width=20px> **Fuse Generate** / **Fuse Extract**: A pair of nodes for fusing points and extracting values from the fused points.
 	- ![**Fuse Generate**](Nodes/sop_ALT.fusegenerate.1.0.hdalc): Fuses points and generates attributes for use with the Fuse Extract node.
-
 	- ![**Fuse Extract**](Nodes/sop_ALT.fuseextract.1.0.hdalc): Extracts attributes from fused geometry and applies them to unfused geometry. These nodes are useful for simulations where geometry needs to be fused, such as simulating cloth or wires. After the simulation, the animated attributes are transferred back to the original unfused geometry.
 <br> <img src="readme_images/fuse_generate_fuse_extract.jpg" width=400px>
 ## Deformation and Skeleton Export
