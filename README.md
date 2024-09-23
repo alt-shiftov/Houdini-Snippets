@@ -66,8 +66,8 @@ These nodes were created to better understand intersection operations in Houdini
 
 - <img src="readme_images/icons/intersectionanalysis.svg" width=20px> **Intersection Analysis Custom:** A custom version of the **Intersection Analysis node**, which can be slightly faster than the original. Like the original node, it can store *sourceprim*, *sourceinput*, and *sourceprimuv* attributes. 
 Additionally, it can **split lines** based on the primitives they belong to and store information about which **edges** points are associated with.
+<br> <img src="readme_images/intersectionanalysis.jpg" width=500px> <br>
 
- <br> ADD IMAGE  <br>
 
 - <img src="readme_images/icons/boolean.svg" width=20px> **Surface Shatter**: A basic version of a **Boolean shatter** node using Surface Mode. This node is a work in progress, and I'm continuing to improve it. It offers two methods for generating cutting surfaces, though it is still somewhat clunky.
 
