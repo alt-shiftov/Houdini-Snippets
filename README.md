@@ -40,26 +40,27 @@ These functions project a point onto: [`line`](VEX/Projection/projection_functio
 <br><br>
 
 ### Hedges, Winding, and Edges
-- Snippets for iterating over half-edges (hedges).
-- Finding the winding number (determine if a point is inside or outside 2D/3D geometry).
-- Comparing winding direction between two primitives.
-- Edge-related functions:
+- Snippets for ![iterating over half-edges (hedges)](VEX/hedge_winding_functions.h#L22).
+- Finding the ![winding number](VEX/hedge_winding_functions.h#L182) (determine if a point is inside or outside 2D/3D geometry).
+- ![Comparing winding](VEX/hedge_winding_functions.h#L110) direction between two primitives.
+- ![Edge-related functions](VEX/edge_functions.h):
   - `primedges()` – Get edges of a primitive.
   - `pointedges()` – Get edges connected to a point.
   - `isedgeinprim()` – Check if an edge belongs to a specific primitive.
   - `edgeprims()` – Find primitives that share an edge.
   - `nearedgestopoint()` – Find the nearest edge to a point.
 
-### Lines, Curves, and UVw
-- `resamplebylength()` – Resamples a curve (similar to the Resample SOP but as a function).
+### Lines, Curves, and UVWs
+- ![`resamplebylength()`](VEX/resample_functions.h#L101) – Resamples a curve (similar to the Resample SOP but as a function).
+- ![`resamplebylength_pin()`](VEX/resample_functions.h#L113) - Resample a curve while keeping certain points fixed (pinned).
 - Finding points along a curve between UV coordinates.
 - Finding nearby vertices based on UV coordinates.
-- Finding a primitive line using two points.
+- Finding a primitive line by two points.
 
 # HIPs
 
 ## Solvecurve() / Solveik()
-- Example file demonstrating the use of `solvecurve()` and `solveik()` functions in VEX.
+- ![Example file](Examples/solvecurve_solveik.hiplc) demonstrating the use of `solvecurve()` and `solveik()` functions in VEX.
 <br><br> <img src="readme_images/solvecurve_solveik.gif" width=600px> <br>
 
 <br><br>
