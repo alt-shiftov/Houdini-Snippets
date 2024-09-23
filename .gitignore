@@ -9,3 +9,6 @@
 /Tutorials/12_Guided_Remesh/backup
 /Tutorials/09_PieceIteration/backup
 /Tutorials
+*.hip
+*.hda
+/VEX/backup
