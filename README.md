@@ -53,7 +53,7 @@ These functions project a point onto: line, segment, plane, triangle, planar and
 ## Edge Preservation
 Houdini’s basic nodes don't always preserve edge groups well during geometry operations. This collection of nodes is designed to handle geometry while maintaining edge groups.
 
-These nodes were developed during the creation of my custom Boolean fracture system, which can be found in the Shatterizer repo.
+These nodes were developed during the creation of my **custom Boolean fracture system**, which can be found in the ![Shatterizer](https://github.com/alt-shiftov/Shatterizer) repo.
 
 - <img src="readme_images/icons/grouptransfer.svg" width=20px> **Transfer Edge**: More accurate edge group transfer compared to Transfer Groups. <br>
 - <img src="readme_images/icons/fuse.svg" width=20px> **Fuse Preserve Edges**: Fuses points while keeping edge groups intact. <br>
