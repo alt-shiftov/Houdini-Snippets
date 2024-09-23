@@ -1,5 +1,6 @@
 // Near Edges to Edge - nearedgestoedge()
-// Находит все грани, близкие к искомой. Есть версия nearedgetoedge() - выдает одну грань
+// Finds all edges that are close to the specified edge. 
+// The function nearedgetoedge() returns a single edge.
 
 function int[] nearedgestoedge(int geo; string edgegroup; int pt01, pt02; float dist){
     if (edgegroup == '*') edgegroup = '';
@@ -56,7 +57,7 @@ function int[] nearedgetoedge(int geo; int pt01, pt02; float dist){
 
 ////////////////////////////////////
 // Near Edges to Point - nearedgestopoint()
-// Находит все грани, близкие к определенной позиции
+// Finds all edges that are close to a specified position.
 
 function int[] nearedgestopoint(int geo; string edgegroup; vector ptpos; float ds[]){
     int prim = -1;
@@ -133,7 +134,7 @@ function int nearedgetopoint(int geo; string edgegroup; vector ptpos){
 
 //////////////////////////////////////////////////////////
 
-// get all prims that connects to one edge
+// Returns all primitives that are connected to a specified edge.
 function int[] edgeprims(int geo; int pt01, pt02){
     int prims[] = array();
     
@@ -156,7 +157,8 @@ function int[] edgeprims(int geo; int pt01, pt02){
 
 
 ///////////////////////////////////////////////
-// Get All Edges by prim (return two points)
+// Returns all edges associated with a primitive.
+// Each edge is defined by two points.
 function int[] primedges(int geo; int prim){
     
     int pts[] = array();
@@ -186,8 +188,7 @@ function int[] primedges(int geo; int prim){
 
 ///////////////////////////////////////
 // Point Edges - pointedges()
-// Simple neighbours
-// edges that connects to point
+// Returns the edges that are connected to a specified point.
 
 function int[] pointedges(int geo; int ptn){
     int pts[] = neighbours(geo, ptn);
@@ -203,8 +204,8 @@ function int[] pointedges(int geo; int ptn){
 
 ////////////////////////////////////////////
 // Is Edge In Prim
-// Проверяет, лежит ли одна из граней примитива в edge группе
-// Возвращяет две точки, образующие грань
+// Checks if an edge is part of a primitive's edge group.
+// Returns the two points that define the edge.
 
 function int isedgeinprim(int geo; string edgegroup; int prim; int pts[]){
     int hedge = primhedge(geo, prim);

@@ -1,8 +1,8 @@
 // functions for working with lines (open polys)
 
 //////////////////////////////////////////////////
-// findprims - finding primitive lines by two points
-// findprim - finding one primitive line by two points
+// findprims() - Returns the primitive lines that connect two points.
+// findprim() - Returns a single primitive line that connects two points.
 
 function int[] findprims(int geo; string primgrp; int pt01; int pt02){    
     int prims[];
@@ -59,7 +59,8 @@ function int findprim(int geo; int pt01; int pt02){
 
 
 /////////////////////////////////////////
-// Removing Duplicated Lines. Iterating over primitives, using findprims()
+// Removing Duplicated Lines (Lines that connect the same two points). 
+// This is done by iterating over primitives and using findprims().
 
 function void removeduplines(int geo; int primnum){
 
@@ -77,10 +78,9 @@ function void removeduplines(int geo; int primnum){
 
 
 //////////////////////////////////////////////
-// ### Near Line Prims to Prim - nearprims()
-// Находит все линии, близкие к искомой линии
-// мб заюзать лучше pcsegment()
-// find near line prims 
+// ### Near Line Primitives to Primitive - nearprims()
+// Finds the nearest line primitives to a given primitive.
+// This should be updated to utilize the pcsegment() function.
 
 function int[] nearprims(int geo; int prim; float rad){
     int nearprims[] = array();
@@ -128,7 +128,6 @@ function int pointprimvertex(int geo; int ptnum; int primnum){
 
 ///////////////////////////////////////////////
 // Near Vertices by UV - nearverticesbyuv()
-// 
 function int[] nearverticesbyuv(int geo; float targetuv; int primnum; float maxuvdist){
     int vtxs[] = primvertices(geo, primnum);
 
@@ -207,7 +206,7 @@ function int[] pointsfromuv(int geo; int primnum; float start; float end){
 
 ///////////////////////////////////
 // ### UV From Points - uvfrompoint()
-// Берет uv по номеру примитива и точки
+// Get curve uv by primitive and point
 
 function float uvfrompoint(int geo; int ptnum; int primnum){
     int vtx = pointprimvertex(geo, ptnum, primnum);
@@ -218,8 +217,7 @@ function float uvfrompoint(int geo; int ptnum; int primnum){
 
 ////////////////////////////////////
 // ### UVs From Points - uvsfrompoints()
-// Выдает массив всех диапазонов uv, которые лежат между точками
-
+// Returns an array of all uv ranges that lie between the points
 
 function void uvsfrompoints_all(int geo; int pts[]; int primnum; vector2 uvranges[]; string ptgrps[]){
     int allpts[] = primpoints(geo, primnum);
@@ -255,7 +253,9 @@ function void uvsfrompoints_all(int geo; int pts[]; int primnum; vector2 uvrange
     
 }
 
-// GET ONE OR TWO UV RANGE FROM POINTS ARRAY - находит самые крайние uv. СДелает два uv, если упрется в край (uvend = 1.0)
+// RETURN ONE OR TWO UV RANGE FROM POINTS ARRAY
+// return corner uvs. Will make two uvs, if it hits the edge (uvend = 1.0)
+
 function void uvsfrompoints_main(int geo; int pts[]; int primnum; vector2 uvranges[]; string ptgrps[]){
     int allpts[] = primpoints(geo, primnum);
     if (allpts[-1] == allpts[0]) // remove duplicated index from end

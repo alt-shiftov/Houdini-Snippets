@@ -1,17 +1,21 @@
 // Hedges Functions:
-// ------ iterating over hedges (3 variants)
-// ------ iterating over hedge equiv's (2 variants)
+
+// ------ iterating over hedges (3 vars)
+// ------ iterating over hedge equiv's (2 vars)
+
 // ------ compare_hedge_winding() - compare primitives winding by 2 equiv hedges
 // ------ primshedges() - getting 2 hedges by 2 neighbour prims.
 
-// compare_hedge_winding() + primshedges() - can be used for comparing winding btw two prims
+// compare_hedge_winding() + primedges() - This combination can be used to compare the winding (facing direction) of two prims.
 
 // Winding Functions:
 // ------ reverse_winding() - analog Reverse SOP node
-// ------ computeWindingNumber2D() - analog of windingnumber2d() function. But can work with 3d polygon (projecting in a 2d space)
-//                                   Can be used to determine if a point is inside or outside the planar polygon
-// ------ computeWindingNumber3D() - analog of windingnumber() function. Made it for research purposes. Finds winding value for a point by solid geometry
-//                                   Can be used to find if point is inside or outside solid geometry. Better to use SideFX version
+
+// ------ computeWindingNumber2D() - Determines if a point is inside or outside a planar polygon.
+// The polygon can be arbitrarily oriented in 3D space; it does not need to be perpendicular to any axis.
+
+// ------ computeWindingNumber3D() - Determines if a point is inside or outside a solid 3D geometry.
+// Developed for research purposes. I recommend to use official windingnumber() function.
 
 
 
@@ -55,7 +59,7 @@ for (int hedge = start; hedge != -1; ){
 
 ////////////////////////////////////////////////////
 // ### Iterate Over Hedges And Equivs
-// Iterate over hedges and all equivs from that hedges
+// Iterate over hedges and all their equivs
 
 // Variant 1
 int starthedge = primhedge(0, @primnum); //pts[0];
@@ -74,8 +78,6 @@ for (int hedge = starthedge; hedge != -1; ){
 
 
 // Variant 2
-// Важно проверять, чтобы **equiv != hedge**
-// Если у грани **нет equiv**, то **hedge_nextequiv()** выдаст эту же hedge
 
 int hedge = primhedge(0, @primnum); //pts[0]
 int starthedge = hedge;
@@ -98,10 +100,12 @@ do{
 
 
 
-// Compare Hedge Windings. 
-// Use for comparing windings between two connected primitives.
-// 1 - winding is similar
-// 0 - winding is difference
+// Compares the facing direction of neighboring polygons.
+// Useful for determining whether the target polygon (neighbor) has the same orientation as the source polygon or if it is reversed.
+
+// Returns:
+// 1 - The winding is similar (polygons are facing in the same direction).
+// 0 - The winding is different (polygons are facing in opposite directions).
 
 function int compare_hedge_winding(int geo; int hedge0; int hedge1){
 
@@ -120,8 +124,8 @@ function int compare_hedge_winding(int geo; int hedge0; int hedge1){
 
 /////////////////////////////////////////////////////////
 
-// Find Two hedges between two primitives
-// If edge between prims did not exist - return [-1; -1]
+// Finds two hedges between two primitives
+// If edge between prims does not exist - return [-1; -1]
 
 // hedge[0] - prim0's hedge
 // hedge[1] - prim1's hedge
@@ -155,7 +159,7 @@ function int[] primshedges(int geo; int prim0, prim1){
 
 /////////////////////////////////////
 
-// Reverse Winding of Polygon
+// Reverse Facing of a polygon (like Reverse SOP)
 
 function void reverse_winding(int geo; int prims){
     
@@ -171,7 +175,8 @@ function void reverse_winding(int geo; int prims){
 ///////////////////////////////////////////////////////////////////
 // Compute Winding for a Point Position on 2D Polygon
 
-// Allows to find if point is inside the primitive or the outside
+// Determines if a point is inside or outside a planar polygon
+
 
 // by point and vertices of the polygon
 function int computeWindingNumber2D(vector pt, vertices[]) {
@@ -233,7 +238,7 @@ function int computeWindingNumber2D(int geo, prim; vector pt) {
 }
 
 
-// Example usage
+// Example
 i@winding = computeWindingNumber2D(1, 0, v@P);
 
 
