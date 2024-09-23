@@ -62,7 +62,7 @@ function int[] nearedgestopoint(int geo; string edgegroup; vector ptpos; float d
     int prim = -1;
     vector primuv = 0;
     xyzdist(geo, ptpos, prim, primuv);
-    if (edgegroup == '') edgegroup = '*';
+    if (edgegroup == '*') edgegroup = '';
     
     vector pos = primuv(geo, "P", prim, primuv);
     int pts[] = primpoints(geo, prim);
@@ -101,13 +101,13 @@ function int[] nearedgestopoint(int geo; string edgegroup; vector ptpos; float d
 
 
 function int[] nearedgestopoint(int geo; vector ptpos; float dists[]){
-    string edgegrp = '*';
+    string edgegrp = '';
     int pts[] = nearedgestopoint(geo, edgegrp, ptpos, dists);
     return pts;
 }
 
 function int[] nearedgestopoint(int geo; vector ptpos){
-    string edgegrp = '*';
+    string edgegrp = '';
     float dists[] = array();
     int pts[] = nearedgestopoint(geo, edgegrp, ptpos, dists);
 
