@@ -36,7 +36,7 @@ Projection simply involves finding the minimal distance.
 This can be achieved using [Near Distance Functions](VEX/NearestDistance) (Geometric Tools Functions).
 
 However, I found another implementations that might also be useful.
-These functions project a point onto: line, segment, plane, triangle, planar and non-planar quad.
+These functions project a point onto: _line_, _segment_, _plane_, _triangle_, _planar_ and _non-planar quad_.
 <br><br>
 
 ### Hedges, Winding, and Edges
