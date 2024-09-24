@@ -94,7 +94,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 <br> <img src="readme_images/intersectionanalysis.jpg" width=500px> <br>
 
 
-- <img src="readme_images/icons/boolean.svg" width=20px> ![**Surface Shatter**](Nodes/sop_ALT.surfaceshatter.1.0.hdalc): A basic version of a **Boolean shatter** node using Surface Mode. This node is a work in progress, and I'm continuing to improve it. It offers two methods for generating cutting surfaces, though it is still somewhat clunky.
+- <img src="readme_images/icons/boolean.svg" width=20px> ![**Surface Shatter**](Nodes/sop_ALT.surfaceshatter.1.0.hdalc): A basic version of a **Boolean shatter** node using Surface Mode. This node is a work in progress, and I'm continuing to improve it. It was developed as part of my exploration into creating something similar to a Boolean Shatter operation.
 
 
 
