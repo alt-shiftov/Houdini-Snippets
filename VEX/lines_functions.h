@@ -77,6 +77,144 @@ function void removeduplines(int geo; int primnum){
 }
 
 
+// Get neighboring primitives for a polyline (a line with two points).
+function int[] polyline_neighbours(int geo; int primnum){
+    int pts[] = primpoints(geo, primnum);
+    
+    int neis0[] = neighbours(geo, pts[0]);
+    int neis1[] = neighbours(geo, pts[1]);
+    removevalue(neis0, pts[1]);
+    removevalue(neis1, pts[0]);
+    
+    int neiprims[];
+    foreach(int nei; neis0){
+        int edge = pointedge(geo, pts[0], nei);
+        if (edge == -1) continue;
+        
+        int prim = hedge_prim(geo, edge);
+        if (find(neiprims, prim) < 0){
+            append(neiprims, prim);
+        }
+    }
+    
+    foreach(int nei; neis1){
+        int edge = pointedge(geo, pts[1], nei);
+        if (edge == -1) continue;
+        
+        int prim = hedge_prim(geo, edge);
+        if (find(neiprims, prim) < 0){
+            append(neiprims, prim);
+        }
+    }
+    removevalue(neiprims, primnum);
+    return neiprims;
+    
+}
+
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+// Simple connectivity check for polylines with a constraint point group.
+// Finds connected polylines "split" at constraint points.
+// Works at the Detail level.
+// Constraint points break the original line into segments.
+
+// Uses polyline_neighbours() to find connected lines, 
+// ignoring lines where in between is constraint points.
+
+// Can be faster by using the Connectivity node to create initial classes,
+// then iterating over the pieces instead of all geometry at the Detail level.
+
+function int[] polyline_neighbours(int geo; int primnum; string constrgrp){
+    int pts[] = primpoints(geo, primnum);
+    
+    int neis0[] = neighbours(geo, pts[0]);
+    int neis1[] = neighbours(geo, pts[1]);
+    removevalue(neis0, pts[1]);
+    removevalue(neis1, pts[0]);
+    
+    if (inpointgroup(0, constrgrp, pts[0]))
+        neis0 = array();
+    
+    if (inpointgroup(0, constrgrp, pts[1]))
+        neis1 = array();
+    
+    int neiprims[];
+    foreach(int nei; neis0){
+        int edge = pointedge(geo, pts[0], nei);
+        if (edge == -1) continue;
+        
+        int prim = hedge_prim(geo, edge);
+        if (find(neiprims, prim) < 0){
+            append(neiprims, prim);
+        }
+    }
+    
+    foreach(int nei; neis1){
+        int edge = pointedge(geo, pts[1], nei);
+        if (edge == -1) continue;
+        
+        int prim = hedge_prim(geo, edge);
+        if (find(neiprims, prim) < 0){
+            append(neiprims, prim);
+        }
+    }
+    removevalue(neiprims, primnum);
+    return neiprims;
+    
+}
+
+int primCount = nprimitives(0);
+int componentID = 0;  // Unique ID for each connected component
+
+// Create an array to store component assignments for points
+int ids[] = array();
+resize(ids, primCount, -1);
+
+// storing constraint group
+string constrgroup = chs('constrgroup');
+
+// Flood fill function to assign component ID
+function void floodFill(int startPrim, compID; int ids[]; string constrptgroup) {
+    
+    int stack[] = array(startPrim);  // Stack to keep track of points to visit
+    
+    while(len(stack) > 0) {
+        int curr = pop(stack);  // Get the last point from the stack
+        if (ids[curr] != -1) continue;  // Skip if already visited
+
+        ids[curr] = compID;  // Assign component ID to current point
+        
+        // Find neighboring points connected by edges
+        int neighbors[] = polyline_neighbours(0, curr, constrptgroup);
+        foreach(int nb; neighbors) {
+            if (ids[nb] == -1) {  // Only visit unvisited neighbors
+                append(stack, nb);  // Add neighbor to stack for future visits
+            }
+        }
+    }
+}
+
+
+// Iterate over all points and apply flood fill where necessary
+for (int prim = 0; prim < primCount; prim++) {
+    if (ids[prim] == -1) {
+        floodFill(prim, componentID, ids, constrgroup);  // Pass ids as an argument
+        componentID++;  // Increment component ID for the next connected piece
+    }
+}
+
+// Finally, assign the IDs back to points
+i[]@ids = ids;
+
+
+////////////////////////////////////////////
+// After the Detail Wrangle, use a Primitive Wrangle to assign the class attribute
+int ids[] = detail(0, "ids");
+i@class = ids[@primnum];
+
+
+
+//////////////////////////////////////////////
 //////////////////////////////////////////////
 // ### Near Line Primitives to Primitive - nearprims()
 // Finds the nearest line primitives to a given primitive.
