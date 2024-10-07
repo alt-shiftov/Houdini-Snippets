@@ -60,6 +60,7 @@ These functions project a point onto: [`line`](VEX/Projection/projection_functio
 ### ![Lines, Curves, and UVWs](VEX/lines_functions.h)
 - ![`resamplebylength()`](VEX/resample_functions.h#L101) – Resamples a curve (similar to the Resample SOP but as a function).
 - ![`resamplebylength_pin()`](VEX/resample_functions.h#L113) - Resample a curve while keeping certain points fixed (pinned).
+- ![`floodfill() + polyline_neighbours()`](VEX/lines_functions.h#L114) - Finds **polyline connectivity** based on constraint points, assigning different classes to segments at the Detail level.
 - Finding points along a curve between UV coordinates.
 - Finding nearby vertices based on UV coordinates.
 - Finding a primitive line by two points.
