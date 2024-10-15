@@ -125,7 +125,7 @@ Additionally, it can **split lines** based on the primitives they belong to and 
 
 - ![**Wire to FBX**](Nodes/sop_ALT.wire_to_fbx.1.0.hdalc): Converts wire simulations from Vellum into skeletal animations for export in FBX format. Useful for wires, hair, string, and similar simulations. This node supports both intact and broken wires and works with multiple separate wires. Offers three capture methods.
 
-- <img src="readme_images/icons/bonedeform.svg" width=20px> ![**pCapt to boneCapt**](Nodes/sop_ALT.pCapt_to_boneCapture.1.1.hdalc): Converts point capture data to bone capture data (`@pCaptPts` to `@boneCapture`). This node allows to generate capture data between geometry and a skeleton using Point Deform, then convert it to **bone capture deformation**. Result will be work with the **Bone Deform** node.
+- <img src="readme_images/icons/bonedeform.svg" width=20px> ![**pCapt to boneCapt**](Nodes/sop_ALT.pCapt_to_boneCapture.1.1.hdalc): Converts point capture data to bone capture data (`@pCaptPts` and `@pCaptWeights` to `@boneCapture`). This node allows to generate capture data between geometry and a skeleton using Point Deform, then convert it to **bone capture deformation**. Result will be work with the **Bone Deform** node.
 <br><img src="readme_images/pointCapture to Bone Capture.jpg" width=450px><br>
 
 - ![**Spline Deformer**](Nodes/sop_ALT.splinedeformer.1.0.hdalc): Deforms geometry based on a spline, capable of handling multiple pieces. It uses **primitive UVW** and **point deformation** and has an OpenCL implementation for better performance.
